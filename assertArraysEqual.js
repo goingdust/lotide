@@ -1,4 +1,4 @@
-const eqArrays = function (arg1, arg2) {
+const eqArrays = function(arg1, arg2) {
   if (arg1.length !== arg2.length) {
     return false;
   }
