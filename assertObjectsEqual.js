@@ -20,17 +20,6 @@ const eqArrays = function (arg1, arg2) {
   return equality;
 };
 
-const assertEqual = function(actual, expected) {
-  const pass = '✅✅✅';
-  const fail = '❌❌❌';
-  
-  if (actual === expected) {
-    return console.log(`${pass} Assertion Passed: ${actual} === ${expected}`);
-  } else {
-    return console.log(`${fail} Assertion Failed: ${actual} !== ${expected}`);
-  }
-};
-
 const eqObjects = function(object1, object2) {
   let equality;
   const object1Keys = Object.keys(object1);
@@ -58,26 +47,26 @@ const eqObjects = function(object1, object2) {
   return equality;
 };
 
-const cd = { c: "1", d: ["2", 3] };
-const dc = { d: ["2", 3], c: "1" };
-assertEqual(eqObjects(cd, dc), true);
-
-const cd2 = { c: "1", d: ["2", 3, 4] };
-assertEqual(eqObjects(cd, cd2), false);
-
-const dc2 = { d: ["2", 3, 4], c: "1" };
-assertEqual(eqObjects(cd2, dc2), true);
+const assertObjectsEqual = function(actual, expected) {
+  const inspect = require('util').inspect;
+  
+  if (eqObjects(actual, expected)) {
+    return console.log(`✅✅✅ Assertion Passed: ${inspect(actual)} === ${inspect(expected)}`);
+  } else {
+    return console.log(`❌❌❌ Assertion Failed: ${inspect(actual)} !== ${inspect(expected)}`);
+  }
+};
 
 const totals1 = {
   April: 50.00,
-  Peter: [40.00, 60.00],
+  Peter: [40.00, 60.00, 50],
   Gary: 25.00
 }
 
 const totals2 = {
   Gary: 25.00,
   April: 50.00,
-  Peter: [45.00, 60.00]
+  Peter: [40.00, 60.00, 50]
 }
 
-console.log(eqObjects(totals1, totals2));
+assertObjectsEqual(totals1, totals2);

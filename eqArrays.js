@@ -11,14 +11,21 @@ const assertEqual = function(actual, expected) {
 
 const eqArrays = function (arg1, arg2) {
   let equality;
+  let biggerArray;
+  let smallerArray;
   
-  for (let i = 0; i < arg1.length; i++) {
-    for (let j = 0; j < arg2.length; j++) {
-      if (i === j && arg1[i] === arg2[j]) {
-        equality = true;
-      } else {
-        equality = false;
-      }
+  if (arg1.length >= arg2.length) {
+    biggerArray = arg1;
+    smallerArray = arg2;
+  } else {
+    biggerArray = arg2;
+    smallerArray = arg1;
+  }
+  for (let i = 0; i < biggerArray.length; i++) {
+    if (biggerArray[i] === smallerArray[i]) {
+      equality = true;
+    } else {
+      return false;
     } 
   }
   return equality;
@@ -28,3 +35,4 @@ assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true);
 assertEqual(eqArrays([1, 2, 3], [3, 2, 1]), false);
 assertEqual(eqArrays(["1", "2", "3"], ["1", "2", "3"]), true);
 assertEqual(eqArrays(["1", "2", "3"], ["1", "2", 3]), false);
+assertEqual(eqArrays([45, 50], [40, 50]), false);
