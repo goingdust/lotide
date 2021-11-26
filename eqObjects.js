@@ -24,9 +24,8 @@ const assertEqual = function(actual, expected) {
 const eqObjects = function(object1, object2) {
   let equality;
   const object1Keys = Object.keys(object1);
-  const object2Keys = Object.keys(object2);
 
-  if (object1Keys.length !== object2Keys.length) {
+  if (object1Keys.length !== Object.keys(object2).length) {
     return false;
   }
 
@@ -38,6 +37,12 @@ const eqObjects = function(object1, object2) {
     ) {
       equality = true;
     } else if (object1[key] === object2[key]) {
+      equality = true;
+    } else if (
+      !(Array.isArray(object1[key])) &&
+      !(Array.isArray(object2[key])) &&
+      eqObjects(object1[key], object2[key])
+    ) {
       equality = true;
     } else {
       return false;
@@ -58,7 +63,7 @@ assertEqual(eqObjects(cd2, dc2), true);
 
 const totals1 = {
   April: 50.00,
-  Peter: [40.00, 60.00],
+  Peter: [45.00, 60.00],
   Gary: 25.00
 };
 
@@ -69,3 +74,8 @@ const totals2 = {
 };
 
 console.log(eqObjects(totals1, totals2));
+
+console.log(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 })); // => true
+
+console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 })); // => false
+console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 })); // => false
