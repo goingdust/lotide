@@ -1,6 +1,6 @@
 {
   "name": "@goingdust/lotide",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A function libary for Week 1 of Lighthouse Labs WD Bootcamp",
   "main": "assertArraysEqual.js",
   "directories": {
